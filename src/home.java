@@ -63,6 +63,35 @@ public class home {
                         System.out.println(e);
                     }
                     break;
+                case 3:
+                    System.out.println("Search the details of the particular date ");
+                    System.out.println("Enter the date: ");
+                    String date = sc.next();
+                    try{
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/homeautomationdb","root","");
+                        String sql = "SELECT `temperature`, `humidity`, `moisture`, `date` FROM `sensorvalues` WHERE `date`='"+date+"' ";
+                        Statement stmt = con.createStatement();
+                        ResultSet rs = stmt.executeQuery(sql);
+                        while(rs.next()){
+                            temp = rs.getInt("temperature");
+                            hum = rs.getInt("humidity");
+                            moist = rs.getString("moisture");
+                            date = rs.getString("date");
+                            System.out.println("Temperature = "+temp);
+                            System.out.println("Humidity ="+hum);
+                            System.out.println("Moisture = "+moist);
+                            System.out.println("Date ="+date);
+
+                        }
+
+                    }
+                    catch ( Exception e){
+                        System.out.println(e);
+                    }
+                    break;
+                case 4:
+                    System.exit(0);
             }
         }
     }
